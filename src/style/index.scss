@@ -1,0 +1,39 @@
+@import './variables.scss';
+
+html {
+    background-color: var(--home-background);
+}
+
+* {
+    margin:0px;
+    padding:0px;
+    box-sizing: border-box;
+}
+
+body{
+    margin : 0px;
+    padding : 0px;
+    color : var(--light-color);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    color: unset;
+    text-decoration: unset;
+}
+
+input {
+    padding : 0.5rem;
+    border-radius: 0.15rem;
+    width : 100%;
+    border : none;
+    transition: 0.25s;
+    box-shadow: var(--shadow-light);
+
+}
+input:hover{
+    box-shadow: var(--shadow-dark);
+}
+input:focus {
+    box-shadow: var(--shadow-dark);
+}

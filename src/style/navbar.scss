@@ -1,0 +1,62 @@
+.navbar {
+    background-image: var(--navbar-background);
+    height:80px;
+    font-size: 1.75rem;
+    display: flex;
+    align-items: center;
+    width : 100%;
+    .navchunk {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width : 100%;
+        margin : 1rem;
+        .nav-links {
+            align-self: center;
+            margin : 0.12rem;
+            color: var(--light-color);
+            font-size : 1.1rem;
+            padding : 0.5rem;
+            
+        }
+        .nav-links:hover{
+            transition : 0.25s;
+            font-size: 1.8rem;
+        }
+        .nav-links:focus{
+            transition: 0.1s;  
+            border-radius: 0.5rem;
+            background-color: var(--button-select);
+        }
+        .avatar {
+            width : 3rem;
+            height : 3rem;
+            min-width: 3rem;
+            margin : 10px;
+            border-radius: 50%;
+            transition: 0.25s;
+        }
+        .avatar:hover {
+            box-shadow: var(--shadow-light);
+        }
+        .avatar:focus {
+            box-shadow: var(--shadow-dark);
+        }
+    }
+    .logoName {
+        display : flex;
+        flex-direction: row;
+        justify-content: left;
+        align-items: center;
+        width : 50%;
+        .advocateIcon {
+            background-image : var(--advocate-icon);
+            background-size: cover;
+            height: 2.5rem;
+            width : 2.5rem;
+            margin : 0.5rem;
+        }
+    }
+
+}

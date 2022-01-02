@@ -1,0 +1,14 @@
+:root {
+    --home-background : #7067CF;
+    --light-color: #ececf1;
+    --button-select: #7B287D;
+    --button-color : #E49273;
+    --text-dark-color: #333333;
+    --text-focus-color : #7B287D;
+    --shadow-very-light : 0 4px 8px 0 rgba(3, 3, 3, 0.1);
+    --shadow-light : 0 4px 8px 0 rgba(0,0,0,0.2);
+    --navbar-background : url('../resources/pngegg.png');
+}
+:dark-mode {
+    --home-background : #304D6D;
+}
