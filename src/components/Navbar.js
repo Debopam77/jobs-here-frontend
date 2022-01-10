@@ -32,6 +32,11 @@ function Navbar() {
             class : 'nav-links'
         },
         {
+            title : 'Login',
+            url : '/login',
+            class : 'nav-links'
+        },
+        {
             title : 'About Us',
             url : '/aboutUs',
             class : 'nav-links'

@@ -8,6 +8,7 @@ import Recruiters from '../components/Recruiters'
 import Jobs from '../components/Jobs'
 import AboutUs from '../components/AboutUs'
 import Search from '../components/Search'
+import Login from '../components/Login'
 
 function Router () {
     
@@ -22,6 +23,7 @@ function Router () {
                 <Route path='/recruiter' element={<Recruiters/>}/>
                 <Route path='/Search' element={<Search/>}/>
                 <Route path='/jobListings' element={<Jobs/>}/>
+                <Route path='/login' element={<Login/>}/>
                 <Route path='/aboutUs' element={<AboutUs/>}/>
                 <Route path='/' element={<Home sure='Yes'/>}/>
             </Routes>

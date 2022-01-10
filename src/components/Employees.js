@@ -28,7 +28,11 @@ function Employees() {
 
     return (<div className='employee'>{
         employees.map((employee, index) => {
-            return <EmployeeCard key={'employee'+index} employee={employee}/>
+            return (
+            <>
+                <EmployeeCard key={'employee'+index} employee={employee}/>
+            </>
+            )
         })
     }</div>)
 }
