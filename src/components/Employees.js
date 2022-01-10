@@ -9,11 +9,11 @@ function Employees() {
 
     useEffect(() => {
         //Get environment details
-        const environment = 'localhost:5000'
+        const environment = process.env.REACT_APP_SSL + process.env.REACT_APP_URL
 
         const getEmployees = async () => {
             try {
-                const url = 'http://'+environment+'/employee'
+                const url = environment+'/employee'
                 const employeeData = await Axios.get(url);
                 setEmployees(employeeData.data)
                 console.log(employeeData.data)

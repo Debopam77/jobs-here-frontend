@@ -11,11 +11,11 @@ function Recruiters() {
 
     useEffect(() => {
         //Get environment details
-        const environment = 'localhost:5000'
+        const environment = process.env.REACT_APP_SSL + process.env.REACT_APP_URL
 
         const getRecruiters = async () => {
             try {
-                const url = 'http://'+environment+'/recruiter'
+                const url = environment+'/recruiter'
                 const recruiterData = await Axios.get(url);
                 setRecruiters(recruiterData.data)
                 console.log(recruiterData.data)
