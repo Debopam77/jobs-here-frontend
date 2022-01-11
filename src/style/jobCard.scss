@@ -1,0 +1,22 @@
+.JobCard {
+    background-color: var(--color-6);
+    font-family: 'Courier New', Courier, monospace;
+    transition: 0.25s;
+    display : flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width : 45rem;
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: 5px;
+    border : solid 1px #f8f5f1;
+}
+
+.JobCard:hover {
+    box-shadow: var(--shadow-light);
+}
+
+.In-line {
+    display : flex;
+}

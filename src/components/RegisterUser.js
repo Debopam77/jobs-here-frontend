@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {Routes, Route} from 'react-router-dom'
+import { Navigate} from 'react-router-dom'
 
 
 function RegisterUser() {
@@ -16,19 +16,14 @@ function RegisterUser() {
     if(redirectTo === 'employee') {
         console.log('Not Here')
         return (
-            <Routes>
-                <Route path='/addEmployee' />
-            </Routes>      
+            <Navigate to='/addEmployee' /> 
         )
     }else if(redirectTo === 'recruiter') {
         console.log('Here')
         return (
-            <Routes>
-                <Route path='/addRecruiter'/>
-            </Routes>
+            <Navigate to='/addRecruiter' />
         )
     }
-
     const output = (
         <div className='loginRegister'>
             <h2>To which do you belong? </h2>

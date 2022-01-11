@@ -56,6 +56,14 @@ function Navbar({loggedIn}) {
             url: '/logout',
             class: 'nav-links'
         }
+        //Employee specific changes
+        if (user && user.type === 'employee'){
+            navBarItems[3] = {
+                title : 'My-Job-Matches',
+                url: '/showMatches',
+                class: 'nav-links'
+            }
+        }
         //Remove the login link
         //navBarItems.splice(3, 1);
 
@@ -68,7 +76,7 @@ function Navbar({loggedIn}) {
     return (
         
         <div className = 'navbar'>
-            <div className='logoName'><a href='/'><div className='advocateIcon'></div></a><a href='/'> {(user)? 'Welcome '+ ((user.type === 'employee') ? user.name.firstName : user.companyName) : 'Jobs-Here-365'}</a></div>
+            <div className='logoName'><a href='/'>{(user)? 'Welcome '+ ((user.type === 'employee') ? user.name.firstName : user.companyName) : 'Jobs-Here-365'}</a></div>
             <div className = 'navchunk'>
                 <div className = 'links' id=''>
                     {navBarItems.map((item, index)=> {

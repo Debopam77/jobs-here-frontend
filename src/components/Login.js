@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import '../style/index.scss'
-import {Routes, Route} from 'react-router-dom'
+import {Navigate} from 'react-router-dom'
 import Axios from 'axios'
 import loaderElement from '../utils/loaderElement'
 
 function Login({setLoggedIn}) {
 
-    const [sent, setSent] = useState(false);
+    const [sent, setSent] = useState(undefined);
     //UseEffect to check weather the sent state has been changed or not
     useEffect(()=>{},[sent]);
     
@@ -27,7 +27,7 @@ function Login({setLoggedIn}) {
         event.preventDefault()
         
         const employeeOrRecruiter = (isRecruiter) ? 'recruiter' : 'employee'
-        console.log(employeeOrRecruiter)
+        console.log(isRecruiter+'::::'+ employeeOrRecruiter)
         //call axios api
         const url = (process.env.REACT_APP_SSL)+(process.env.REACT_APP_URL)+'/'+employeeOrRecruiter+'/login'
         console.log(url)
@@ -54,13 +54,11 @@ function Login({setLoggedIn}) {
 
     const getValue = (event) => {
         
-        if (event.target.checked) { 
-            console.log('Yes')
-            setIsRecruiter(true)
-        }
-        else {
-            console.log('No')
+        if (event.target.name === 'isRecruiter' && !event.target.checked) { 
             setIsRecruiter(false)
+        }
+        else if(event.target.name === 'isRecruiter' && event.target.checked) {
+            setIsRecruiter(true)
         }
                
         if (event.target.name !== 'isRecruiter') {
@@ -76,9 +74,7 @@ function Login({setLoggedIn}) {
     //Redirect to home once logged in
     if(redirectState) {
         return (
-            <Routes>
-                <Route path='/' />
-            </Routes>      
+            <Navigate to='/' />    
         )
     }
 
@@ -86,7 +82,7 @@ function Login({setLoggedIn}) {
         <div className='loginRegister'>
             <h2>Enter your login details</h2>
             <form className='centerElements' onSubmit={login}>
-            <input type='checkbox' name={'isRecruiter'} className='checkBox' onChange={getValue} defaultChecked={false}/>
+            <input type='checkbox' name={'isRecruiter'} className='checkBox' onChange={getValue} value={isRecruiter} defaultChecked={false}/>
                 <div className='descriptionInputLogin'><div className='description'>Phone : </div><input onChange={getValue} name='phone'></input></div>
                 <div className='descriptionInputLogin'><div className='description'>Password : </div><input onChange={getValue} name='password' type='password'></input></div>
                 <div className='descriptionInputLogin'><div><a href='/forgotPassword'>Forgot your password?</a></div></div>

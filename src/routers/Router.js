@@ -14,6 +14,7 @@ import RegisterUser from '../components/RegisterUser'
 import AddEmployee from '../components/AddEmployee'
 import AddRecruiter from '../components/AddRecruiter'
 import CreateJobListing from '../components/CreateJobListing'
+import ShowMatches from '../components/ShowMatches'
 
 function Router () {
     
@@ -35,10 +36,11 @@ function Router () {
                 <Route path='/jobListings' element={<Jobs/>}/>
                 <Route path='/login' element={<Login setLoggedIn={setLoggedIn}/>}/>
                 <Route path='/logout' element={<Logout setLoggedIn={setLoggedIn}/>}/>
-                <Route path='/addEmployee' element={<AddEmployee/>}/>
+                <Route path='/addEmployee' element={<AddEmployee setLoggedIn={setLoggedIn}/>}/>
+                <Route path='/addRecruiter' element={<AddRecruiter setLoggedIn={setLoggedIn}/>}/>
                 <Route path='/registerUser/*' element={<RegisterUser/>}/>
-                <Route path='/addRecruiter' element={<AddRecruiter/>}/>
                 <Route path='/createJobListing' element={<CreateJobListing/>}/>
+                <Route path='/showMatches' element={<ShowMatches/>}/>
                 <Route path='/aboutUs' element={<AboutUs/>}/>
                 <Route path='/' element={<Home sure='Yes'/>}/>
             </Routes>

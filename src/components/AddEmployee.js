@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import loaderElement from '../utils/loaderElement';
 import '../style/index.scss';
 import axios from 'axios';
-import {Routes, Route} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 
 function AddEmployee({setLoggedIn}) {
 
@@ -30,7 +30,9 @@ function AddEmployee({setLoggedIn}) {
     const submit = async (event)=> {
         event.preventDefault();
         //Check if both password and confirm password strings are same or not
+        
         if(!passwordMatches) {
+            
             alert('Please enter the passwords correctly');
             return;
         }
@@ -40,6 +42,7 @@ function AddEmployee({setLoggedIn}) {
         //Trigger api to create new user
         try{
             //change sent state to true
+            console.log(newUser)
             setSent(true);
             const response = await axios.post(url, newUser);
             localStorage.setItem('loggedInUser', JSON.stringify({
@@ -58,8 +61,7 @@ function AddEmployee({setLoggedIn}) {
     const getValue = (event) => {
         
         const elementName = event.target.name;
-        const elementValue = event.target.value;
-
+        let elementValue = event.target.value;
         //set the newUser state creating a new object
         setNewUser(()=> {
             let result = newUser;
@@ -74,6 +76,10 @@ function AddEmployee({setLoggedIn}) {
                 const part = elementName.split('.');
                 result[part[0]][part[1]] = elementValue;
 
+            }else {
+                if(elementValue.includes(','))
+                    elementValue = elementValue.split(',')   
+                result[elementName] = elementValue
             }
 
             return result;
@@ -82,10 +88,8 @@ function AddEmployee({setLoggedIn}) {
 
     if(redirectToHome){
         return (
-            <Routes>
-                <Route path='/' />
-            </Routes>
-        );
+            <Navigate to='/'/>
+        )
     }
 
     const output = (
