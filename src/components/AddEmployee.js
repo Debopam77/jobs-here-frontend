@@ -1,140 +1,134 @@
 import React,{useState, useEffect} from 'react';
+import loaderElement from '../utils/loaderElement';
 import '../style/index.scss';
-import {Routes, Route} from 'react-router-dom';
-import blankUserImage from '../resources/user.png'
-import loaderElement from '../utils/loaderElement'
 import axios from 'axios';
+import {Routes, Route} from 'react-router-dom';
 
-function AddEmployee({employee}) {
-    //Is the request sent then start load animation
-    const [sent, setSent] = useState(false)
-    //State to figure out when to redirect page back to user detail page after edit or create
-    const[redirectState, setRedirectState] = useState(false)
+function AddEmployee({setLoggedIn}) {
 
+    const [sent, setSent] = useState(false);
+    //UseEffect to check weather the sent state has been changed or not
     useEffect(()=>{},[sent]);
+    const [passwordMatches, setPasswordMatches] = useState('placeholder');
+    const [redirectToHome, setRedirectToHome] = useState(false);
+    const [newUser, setNewUser] = useState({
+        'name' : {
+            'firstName' : '',
+            'middleName' : '',
+            'lastName' : ''
+        },
+        'email' : '',
+        'phone' : '',
+        'password' : '',
+        'experience' : '',
+        'dateOfBirth' : '',
+        'skills' : '',
+        'preferredLocations' : '',
+        'certificates' : ''
+    });
 
-    //Values that cannot be changed
-    const excludedAttributes = ['phone']
-    let defaultValue = Object.keys(employee)
-        .filter((key) => !excludedAttributes.includes(key))
-        .reduce((obj, key) => {
-            return {
-                ...obj,
-                [key] : employee[key]
-            }
-        }, {})
-    
-    //State to store the created or updated user string
-    const [newValue, setNewValue] = useState(defaultValue)
+    const submit = async (event)=> {
+        event.preventDefault();
+        //Check if both password and confirm password strings are same or not
+        if(!passwordMatches) {
+            alert('Please enter the passwords correctly');
+            return;
+        }
 
-    //onChange triggered function to update 
-    const getValue = (event)=> {
+        const url = (process.env.REACT_APP_SSL)+(process.env.REACT_APP_URL)+'/employee'
+
+        //Trigger api to create new user
+        try{
+            //change sent state to true
+            setSent(true);
+            const response = await axios.post(url, newUser);
+            localStorage.setItem('loggedInUser', JSON.stringify({
+                ...response.data,
+                type : 'employee'
+            }));
+
+            setLoggedIn(true);
+            //Prep to redirect to home
+            setRedirectToHome(true);
+        }catch(e){
+            alert(e)
+        }
+    }
+
+    const getValue = (event) => {
         
         const elementName = event.target.name;
-        let elementValue = event.target.value;
-        
-        //Setting the value of the state using the changed input fields
-        setNewValue(()=> {
-            
-            let result = newValue;
+        const elementValue = event.target.value;
 
-            if(elementName.includes('.')) {
+        //set the newUser state creating a new object
+        setNewUser(()=> {
+            let result = newUser;
+
+            if(elementName === 'confirmPassword'){
+                if(result['password'] === elementValue)
+                    setPasswordMatches(true);
+                else
+                    setPasswordMatches(false);    
+            }else if(elementName.includes('.')) {
                 //Handle object based attributes
                 const part = elementName.split('.');
                 result[part[0]][part[1]] = elementValue;
 
-            }else
-                //Handle normal attributes
-                result[elementName] = elementValue; 
+            }
+
             return result;
         });
     }
 
-    //Submit button is clicked
-    const submitData = async (event)=> {
-        event.preventDefault();
-        let payload = newValue;
-        const url = (process.env.REACT_APP_SSL)+(process.env.REACT_APP_URL)+'/employee/'
-
-        //Call the edit user api
-        try {
-
-            //Request is sent
-            setSent(true);
-
-            //Making the request with the PAYLOAD and the Configurations
-            const res = await axios.patch(url, payload);
-
-            localStorage.setItem('loggedInUser', JSON.stringify({
-                ...res.data,
-                type : 'employee'
-            }))
-
-            //Tell the component to redirect back to the details page
-            setRedirectState(true);
-        }catch(e){
-            alert(e.message);
-        }
-    }
-
-    //Redirect to home once logged in
-    if(redirectState) {
+    if(redirectToHome){
         return (
             <Routes>
                 <Route path='/' />
-            </Routes>      
-        )
+            </Routes>
+        );
     }
 
     const output = (
         <div className='loginRegister'>
+            <form className='centerElements' onSubmit={submit}>
+                <h2>Enter user details here</h2>
 
-            <h2>Add or edit details</h2>
+                <div>Name :
+                    <div className='descriptionInputLogin'><div className='description'>First name</div>
+                    <input onChange={getValue} required name='name.firstName'></input></div>
 
-            <form onSubmit={submitData}>
+                    <div className='descriptionInputLogin'><div className='description'>Middle name</div>
+                    <input onChange={getValue} name='name.middleName'></input></div>
 
-                <div className='description'>Profile picture</div>
-                <img src={blankUserImage} className='avatar' name='avatar' alt='User'></img>
+                    <div className='descriptionInputLogin'><div className='description'>Last name</div>
+                    <input onChange={getValue} required name='name.lastName'></input></div>
+                </div>
 
-                <div className='descriptionInput'><div className='description'>Phone Number</div>
-                <div className='highlight'>{employee.phone}</div></div>
-                
-                <div className='descriptionInput'><div className='description'>Email-ID</div>
-                <input type="text" name={'email'} defaultValue={employee.email} onChange={getValue}></input></div>
+                <div className='descriptionInputLogin'><div className='description'>Email :</div>
+                <input onChange={getValue} required name='email'></input></div>
 
-                <div className='descriptionInput'><div className='description'>First Name</div>
-                <input type="text" name={'name.firstName'} defaultValue={employee.name.firstName} onChange={getValue}></input></div>
-                
-                <div className='descriptionInput'><div className='description'>Middle Name</div>
-                <input type="text" name={'name.middleName'} defaultValue={employee.name.middleName} onChange={getValue}></input></div>
+                <div className='descriptionInputLogin'><div className='description'>Phone :</div>
+                <input onChange={getValue} required name='phone'></input></div>
 
-                <div className='descriptionInput'><div className='description'>Last Name</div>
-                <input type="text" name={'name.lastName'} defaultValue={employee.name.lastName} onChange={getValue}></input></div>
+                <div className='descriptionInputLogin'><div className='description'>Experience :</div>
+                <input onChange={getValue} required name='experience'></input></div>
 
-                <div className='descriptionInput'><div className='description'>Date of Birth</div></div>
+                <div className='descriptionInputLogin'><div className='skills'>Skills and profeciency :</div>
+                <input onChange={getValue} required name='skills'></input></div>
 
-                <div className='descriptionInput'><div className='description'>Something about you</div>
-                <input type="text" name={'aboutMe'} defaultValue={employee.aboutMe} onChange={getValue}></input></div>
+                <div className='descriptionInputLogin'><div className='preferredLocations'>Preferred Job Locations :</div>
+                <input onChange={getValue} required name='preferredLocations'></input></div>
 
-                <div className='descriptionInput'><div className='description'>Bio</div>
-                <input type="text" name={'bio'} defaultValue={employee.bio} onChange={getValue}></input></div>
+                <div className='descriptionInputLogin'><div className='description'>Date of Birth :</div>
+                <input onChange={getValue} required name='dateOfBirth'></input></div>
 
-                <div className='descriptionInput'><div className='description'>Bio</div>
-                <input type="text" name={'bio'} defaultValue={employee.bio} onChange={getValue}></input></div>
+                <div className='descriptionInputLogin'><div className='description'>Password :</div>
+                <input type='password' onChange={getValue} required name='password'></input></div>
 
-                <div className='descriptionInput'><div className='description'>Experience in Years</div>
-                <input type="text" name={'experience'} defaultValue={employee.experience} onChange={getValue}></input></div>
+                <div className='descriptionInputLogin'><div className='description'>Confirm Password :</div>
+                <input onChange={getValue} required name='confirmPassword' className={(!passwordMatches)? 'passwordMatches' : ''}></input></div>
 
-                <div className='descriptionInput'><div className='description'>Skills and Technologies</div>
-                <input type="text" name={'skills'} defaultValue={employee.skills} onChange={getValue}></input></div>
-
-                <div className='descriptionInput'><div className='description'>Preferred Work Location(s)</div>
-                <input type="text" name={'preferredLocations'} defaultValue={employee.preferredLocations} onChange={getValue}></input></div>
-
-                <div className='descriptionInput'><div className='description'>Certificates</div>
-                <input type="text" name={'certificates'} defaultValue={employee.certificates} onChange={getValue}></input></div>
-
-                <button>Submit</button>
+                <button name='register'>Register</button>
             </form>
         </div>
     );

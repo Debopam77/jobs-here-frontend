@@ -36,7 +36,7 @@ function Router () {
                 <Route path='/login' element={<Login setLoggedIn={setLoggedIn}/>}/>
                 <Route path='/logout' element={<Logout setLoggedIn={setLoggedIn}/>}/>
                 <Route path='/addEmployee' element={<AddEmployee/>}/>
-                <Route path='/registerUser' element={<RegisterUser/>}/>
+                <Route path='/registerUser/*' element={<RegisterUser/>}/>
                 <Route path='/addRecruiter' element={<AddRecruiter/>}/>
                 <Route path='/createJobListing' element={<CreateJobListing/>}/>
                 <Route path='/aboutUs' element={<AboutUs/>}/>

@@ -14,12 +14,14 @@ function RegisterUser() {
             setRedirectTo('recruiter')
     }
     if(redirectTo === 'employee') {
+        console.log('Not Here')
         return (
             <Routes>
                 <Route path='/addEmployee' />
             </Routes>      
         )
     }else if(redirectTo === 'recruiter') {
+        console.log('Here')
         return (
             <Routes>
                 <Route path='/addRecruiter'/>

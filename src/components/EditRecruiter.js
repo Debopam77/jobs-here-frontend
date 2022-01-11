@@ -1,10 +1,11 @@
 import React,{useState, useEffect} from 'react';
 import '../style/index.scss';
 import {Routes, Route} from 'react-router-dom';
+import blankUserImage from '../resources/user.png'
 import loaderElement from '../utils/loaderElement'
 import axios from 'axios';
 
-function AddRecruiter({jobListing}) {
+function AddRecruiter({recruiter}) {
     //Is the request sent then start load animation
     const [sent, setSent] = useState(false)
     //State to figure out when to redirect page back to user detail page after edit or create
@@ -14,12 +15,12 @@ function AddRecruiter({jobListing}) {
 
     //Values that cannot be changed
     const excludedAttributes = ['phone']
-    let defaultValue = Object.keys(jobListing)
+    let defaultValue = Object.keys(recruiter)
         .filter((key) => !excludedAttributes.includes(key))
         .reduce((obj, key) => {
             return {
                 ...obj,
-                [key] : jobListing[key]
+                [key] : recruiter[key]
             }
         }, {})
     
@@ -53,7 +54,7 @@ function AddRecruiter({jobListing}) {
     const submitData = async (event)=> {
         event.preventDefault();
         let payload = newValue;
-        const url = (process.env.REACT_APP_SSL)+(process.env.REACT_APP_URL)+'/jobListing/'
+        const url = (process.env.REACT_APP_SSL)+(process.env.REACT_APP_URL)+'/recruiter/'
 
         //Call the edit user api
         try {
@@ -66,7 +67,7 @@ function AddRecruiter({jobListing}) {
 
             localStorage.setItem('loggedInUser', JSON.stringify({
                 ...res.data,
-                type : 'jobListing'
+                type : 'recruiter'
             }))
 
             //Tell the component to redirect back to the details page
@@ -91,23 +92,26 @@ function AddRecruiter({jobListing}) {
             <h2>Add or edit details</h2>
 
             <form onSubmit={submitData}>
+
+                <div className='description'>Profile picture</div>
+                <img src={blankUserImage} className='avatar' name='avatar' alt='User'></img>
+
+                <div className='descriptionInput'><div className='description'>Phone Number</div>
+                <div className='highlight'>{recruiter.phone}</div></div>
                 
                 <div className='descriptionInput'><div className='description'>Email-ID</div>
-                <input type="text" name={'email'} defaultValue={jobListing.email} onChange={getValue}></input></div>
+                <input type="text" name={'email'} defaultValue={recruiter.email} onChange={getValue}></input></div>
 
                 <div className='descriptionInput'><div className='description'>First Name</div>
-                <input type="text" name={'name.firstName'} defaultValue={jobListing.companyName} onChange={getValue}></input></div>
+                <input type="text" name={'name.firstName'} defaultValue={recruiter.companyName} onChange={getValue}></input></div>
 
                 <div className='descriptionInput'><div className='description'>Date of Establishment</div></div>
 
-                <div className='descriptionInput'><div className='description'>Location</div>
-                <input type="text" name={'location'} defaultValue={jobListing.location} onChange={getValue}></input></div>
+                <div className='descriptionInput'><div className='description'>Headquarter</div>
+                <input type="text" name={'headquarter'} defaultValue={recruiter.headquarter} onChange={getValue}></input></div>
 
-                <div className='descriptionInput'><div className='description'>Preffered skills</div>
-                <input type="text" name={'skills'} defaultValue={jobListing.skills} onChange={getValue}></input></div>
-
-                <div className='descriptionInput'><div className='description'>Experience..</div>
-                <input type="text" name={'experience'} defaultValue={jobListing.experience} onChange={getValue}></input></div>
+                <div className='descriptionInput'><div className='description'>Office Locations</div>
+                <input type="text" name={'locations'} defaultValue={recruiter.locations} onChange={getValue}></input></div>
 
                 <button>Submit</button>
             </form>
