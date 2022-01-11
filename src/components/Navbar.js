@@ -64,6 +64,14 @@ function Navbar({loggedIn}) {
                 class: 'nav-links'
             }
         }
+        //Recruiter specific changes
+        if (user && user.type === 'recruiter') {
+            navBarItems[3] = {
+                title : 'Potential Candidates',
+                url: '/showCandidates',
+                class: 'nav-links'
+            }
+        }
         //Remove the login link
         //navBarItems.splice(3, 1);
 

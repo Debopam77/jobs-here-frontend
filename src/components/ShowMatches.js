@@ -1,6 +1,6 @@
 import React from 'react'
 import '../style/index.scss'
-//import '../style/job.scss'
+import '../style/jobCard.scss'
 import Axios from 'axios'
 import {useState, useEffect} from 'react'
 import { Navigate } from 'react-router-dom'
@@ -19,7 +19,7 @@ function ShowMatches() {
 
         if (user && user.type !== 'employee') {
             alert('You must be an employee to get matched')
-            return (<Navigate to='.'/>)
+            return (<Navigate to='/'/>)
         }
 
         const getJobs = async () => {
@@ -40,7 +40,9 @@ function ShowMatches() {
         return arr1.some(item => arr2.includes(item))
     }
 
-    return (<div className='Jobs'>{
+    return (<>
+        <div><h2>Here are the oppertunities selected just for you!</h2></div>
+        <div className='jobs'>{
         jobs.map((job, index) => {
             //Let the magic happen
             const haveCommonSkills = findCommonSkills(user.skills, job.skills)
@@ -51,7 +53,8 @@ function ShowMatches() {
             //return <RecruiterCard key={'job'+index} job={job}/>
             
         })
-    }</div>)
+    }</div>
+    </>)
 }
 
 export default ShowMatches

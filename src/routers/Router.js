@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import Axios from 'axios'
 import Home from '../components/Home'
 import Navbar from '../components/Navbar'
 import Employees from '../components/Employees' 
@@ -15,6 +14,8 @@ import AddEmployee from '../components/AddEmployee'
 import AddRecruiter from '../components/AddRecruiter'
 import CreateJobListing from '../components/CreateJobListing'
 import ShowMatches from '../components/ShowMatches'
+import ShowCandidates from '../components/ShowCandidates'
+import ForgotPassword from '../components/forgotPassword'
 
 function Router () {
     
@@ -41,8 +42,11 @@ function Router () {
                 <Route path='/registerUser/*' element={<RegisterUser/>}/>
                 <Route path='/createJobListing' element={<CreateJobListing/>}/>
                 <Route path='/showMatches' element={<ShowMatches/>}/>
+                <Route path='/showCandidates' element={<ShowCandidates/>}/>
                 <Route path='/aboutUs' element={<AboutUs/>}/>
-                <Route path='/' element={<Home sure='Yes'/>}/>
+                <Route path='/forgotPassword' element={<ForgotPassword/>}/>
+                <Route path='/home' element={<Home/>}/>
+                <Route path='/' element={<Home/>}/>
             </Routes>
         </BrowserRouter>
     )

@@ -1,5 +1,6 @@
 import React from 'react'
 import '../style/index.scss'
+import '../style/employeeCard.scss'
 
 function EmployeeCard({employee, propsOnClick}) {
     const name = employee.name

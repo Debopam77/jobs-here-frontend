@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import '../style/index.scss'
 import '../style/loginRegister.scss'
-import {Navigate} from 'react-router-dom'
+import ChangePassword from './changePassword'
 import Axios from 'axios'
 import loaderElement from '../utils/loaderElement'
 
-function Login({setLoggedIn}) {
+function ForgotPassword() {
 
     const [sent, setSent] = useState(undefined);
     //UseEffect to check weather the sent state has been changed or not
@@ -14,39 +14,29 @@ function Login({setLoggedIn}) {
     //If logging in user is a recruiter
     const [isRecruiter, setIsRecruiter] = useState(false)
 
-    const [inputValues, setInputValues] = useState({
-        phone : '',
-        password : ''
-    })
+    const [inputValues, setInputValues] = useState()
 
     //To intimate the redirect component
     const [redirectState, setRedirectState] = useState(false)
 
     //Passing the values to the login api
-    const login = async (event)=> {
+    const getOTP = async (event)=> {
         //form submit doesn't refresh page
         event.preventDefault()
         
         const employeeOrRecruiter = (isRecruiter) ? 'recruiter' : 'employee'
-        console.log(isRecruiter+'::::'+ employeeOrRecruiter)
         //call axios api
-        const url = (process.env.REACT_APP_SSL)+(process.env.REACT_APP_URL)+'/'+employeeOrRecruiter+'/login'
-        console.log(url)
+        const url = (process.env.REACT_APP_SSL)+(process.env.REACT_APP_URL)+'/'+employeeOrRecruiter+'/forgotPassword'
 
         try {
             console.log(inputValues)
             //Change the sent state to true
             setSent(true)
-            //const response = await 
-            const res = await Axios.post(url, inputValues)
-            //Store login data in the browser local storage
-            localStorage.setItem('loggedInUser', JSON.stringify({
-                ...res.data,
-                type : employeeOrRecruiter
-            }))
-            setLoggedIn(true)
+            console.log(url)
+            const res = await Axios.patch(url, inputValues)
             //Prep for redirect to home
-            setRedirectState(true)
+            if(res)
+                setRedirectState(true)
         }catch(e){
             console.log(e)
             alert(e.response.data.error)
@@ -75,24 +65,21 @@ function Login({setLoggedIn}) {
     //Redirect to home once logged in
     if(redirectState) {
         return (
-            <Navigate to='/' />    
+            <ChangePassword isRecruiter={isRecruiter}/>  
         )
     }
 
     const output = (
         <div className='loginRegister'>
             <h2>Enter your login details</h2>
-            <form className='centerElements' onSubmit={login}>
+            <form className='centerElements' onSubmit={getOTP}>
                 <div className='descriptionInputLogin'><div className='description'>Are you a recruiter? : </div><input type='checkbox' name={'isRecruiter'} className='checkBox' onChange={getValue} value={isRecruiter} defaultChecked={false}/></div>
-                <div className='descriptionInputLogin'><div className='description'>Phone : </div><input onChange={getValue} name='phone'></input></div>
-                <div className='descriptionInputLogin'><div className='description'>Password : </div><input onChange={getValue} name='password' type='password'></input></div>
-                <div className='descriptionInputLogin'><div><a href='/forgotPassword'>Forgot your password?</a></div></div>
-                <div className='descriptionInputLogin'><div><a href='/registerUser'>New user? Register here.</a></div></div>
-                <button>Login</button>
+                <div className='descriptionInputLogin'><div className='description'>Email : </div><input onChange={getValue} name='email'></input></div>
+                <button>Get OTP</button>
             </form>
         </div>
     )
     return (sent) ? loaderElement : output;
 }
 
-export default Login
+export default ForgotPassword

@@ -1,13 +1,14 @@
 .navbar {
     background-image: var(--navbar-background);
     height:80px;
+    padding : 20px;
     font-size: 1.75rem;
     display: flex;
     align-items: center;
     width : 100%;
     .navchunk {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
         width : 100%;
@@ -36,6 +37,7 @@
             margin : 10px;
             border-radius: 50%;
             transition: 0.25s;
+            position: relative;
         }
         .avatar:hover {
             box-shadow: var(--shadow-light);
