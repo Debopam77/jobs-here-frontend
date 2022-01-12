@@ -5,7 +5,7 @@ import blankUserImage from '../resources/user.png'
 import loaderElement from '../utils/loaderElement'
 import axios from 'axios';
 
-function AddEmployee({employee}) {
+function EditEmployee({employee}) {
     //Is the request sent then start load animation
     const [sent, setSent] = useState(false)
     //State to figure out when to redirect page back to user detail page after edit or create
@@ -119,9 +119,6 @@ function AddEmployee({employee}) {
                 <div className='descriptionInput'><div className='description'>Bio</div>
                 <input type="text" name={'bio'} defaultValue={employee.bio} onChange={getValue}></input></div>
 
-                <div className='descriptionInput'><div className='description'>Bio</div>
-                <input type="text" name={'bio'} defaultValue={employee.bio} onChange={getValue}></input></div>
-
                 <div className='descriptionInput'><div className='description'>Experience in Years</div>
                 <input type="text" name={'experience'} defaultValue={employee.experience} onChange={getValue}></input></div>
 
@@ -142,4 +139,4 @@ function AddEmployee({employee}) {
     return (sent) ? loaderElement : output ;
 }
 
-export default AddEmployee
+export default EditEmployee

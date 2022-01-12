@@ -16,6 +16,8 @@ import CreateJobListing from '../components/CreateJobListing'
 import ShowMatches from '../components/ShowMatches'
 import ShowCandidates from '../components/ShowCandidates'
 import ForgotPassword from '../components/forgotPassword'
+import MyJobListings from '../components/myJobListings'
+import EditEmployee from '../components/EditEmployee'
 
 function Router () {
     
@@ -38,10 +40,12 @@ function Router () {
                 <Route path='/login' element={<Login setLoggedIn={setLoggedIn}/>}/>
                 <Route path='/logout' element={<Logout setLoggedIn={setLoggedIn}/>}/>
                 <Route path='/addEmployee' element={<AddEmployee setLoggedIn={setLoggedIn}/>}/>
+                <Route path='/employeeEdit' element={<EditEmployee/>}/>
                 <Route path='/addRecruiter' element={<AddRecruiter setLoggedIn={setLoggedIn}/>}/>
                 <Route path='/registerUser/*' element={<RegisterUser/>}/>
                 <Route path='/createJobListing' element={<CreateJobListing/>}/>
                 <Route path='/showMatches' element={<ShowMatches/>}/>
+                <Route path='/myJobListings' element={<MyJobListings/>}/>
                 <Route path='/showCandidates' element={<ShowCandidates/>}/>
                 <Route path='/aboutUs' element={<AboutUs/>}/>
                 <Route path='/forgotPassword' element={<ForgotPassword/>}/>

@@ -5,7 +5,7 @@ import '../style/employeeCard.scss'
 function EmployeeCard({employee, propsOnClick}) {
     const name = employee.name
     const experience = employee.experience
-    const skills = employee.skills
+    const skills = employee.skills.map((skill) => ' '+skill)
     const email = employee.email
     const phone = employee.phone
     const certificates = employee.certificates

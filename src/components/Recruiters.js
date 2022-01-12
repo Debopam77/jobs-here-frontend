@@ -28,11 +28,16 @@ function Recruiters() {
         getRecruiters()
     },[])
 
-    return (<div className='Recruiters'>{
+    return (
+    <>
+    <div><h2>Our recruiters are</h2></div>
+    <div className='Recruiters'>{
         recruiters.map((recruiter, index) => {
             return <RecruiterCard key={'recruiter'+index} recruiter={recruiter}/>
         })
-    }</div>)
+    }</div>
+    </>
+    )
 }
 
 export default Recruiters

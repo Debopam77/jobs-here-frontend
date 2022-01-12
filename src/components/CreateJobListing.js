@@ -78,6 +78,8 @@ function CreateJobListing() {
     }
 
     const output = (
+    <>
+        <div><h2>Add the details of your job</h2></div>
         <div className='loginRegister'>
             <form className='centerElements' onSubmit={submit}>
                 <h2>Enter Position details</h2>
@@ -97,6 +99,7 @@ function CreateJobListing() {
                 <button name='register'>Add</button>
             </form>
         </div>
+    </>
     );
 
     return (sent) ? loaderElement : output ;

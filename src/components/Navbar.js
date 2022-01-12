@@ -67,8 +67,18 @@ function Navbar({loggedIn}) {
         //Recruiter specific changes
         if (user && user.type === 'recruiter') {
             navBarItems[3] = {
-                title : 'Potential Candidates',
+                title : 'Potential-Candidates',
                 url: '/showCandidates',
+                class: 'nav-links'
+            }
+            navBarItems[2] = {
+                title : 'Add-Listing',
+                url: '/createJobListing',
+                class: 'nav-links'
+            }
+            navBarItems[1] = {
+                title : 'My-Listings',
+                url: '/myJobListings',
                 class: 'nav-links'
             }
         }
@@ -76,7 +86,7 @@ function Navbar({loggedIn}) {
         //navBarItems.splice(3, 1);
 
         //Add an image of the user an point it to the user profile
-        myAvatarElement = (loggedIn) ? <a href='/'><img src={blankUserImage} className='avatar' alt='avatar'></img></a> : undefined;
+        myAvatarElement = (loggedIn) ? <a href={'/'}><img src={blankUserImage} className='avatar' alt='avatar'></img></a> : undefined;
     }
     
 
@@ -93,7 +103,7 @@ function Navbar({loggedIn}) {
                         )
                     })}
                 </div>
-                <div>{myAvatarElement}</div>
+                <div>{(user) ? myAvatarElement : undefined}</div>
             </div>
         </div>
     )
