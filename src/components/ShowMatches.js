@@ -38,12 +38,11 @@ function ShowMatches() {
 
     //To check if two arrays have some common element or not
     const findCommon = (arr1, arr2) => {
-        flag = false;
+        let flag = false;
         arr1.forEach(element => {
             arr2.forEach(arr2Element => {
                 if(arr2Element.toLowerCase() === element.toLowerCase()){
                     flag = true
-                    break
                 }
             })
             
