@@ -86,7 +86,7 @@ function Navbar({loggedIn}) {
         //navBarItems.splice(3, 1);
 
         //Add an image of the user an point it to the user profile
-        myAvatarElement = (loggedIn) ? <a href={'/'}><img src={blankUserImage} className='avatar' alt='avatar'></img></a> : undefined;
+        myAvatarElement = (loggedIn) ? <a href={'/employeeEdit'}><img src={blankUserImage} className='avatar' alt='avatar'></img></a> : undefined;
     }
     
 

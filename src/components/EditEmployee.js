@@ -5,16 +5,22 @@ import blankUserImage from '../resources/user.png'
 import loaderElement from '../utils/loaderElement'
 import axios from 'axios';
 
-function EditEmployee({employee}) {
+function EditEmployee({loggedIn}) {
     //Is the request sent then start load animation
     const [sent, setSent] = useState(false)
     //State to figure out when to redirect page back to user detail page after edit or create
     const[redirectState, setRedirectState] = useState(false)
+    const [employee, setEmployee] = useState(JSON.parse(localStorage.getItem('loggedInUser')))
 
-    useEffect(()=>{},[sent]);
+    // //Load user details in state at Navbar load
+    // useEffect(()=>{
+    //     setEmployee());
+    // }, [loggedIn])
+
+    // useEffect(()=>{},[sent])
 
     //Values that cannot be changed
-    const excludedAttributes = ['phone']
+    let excludedAttributes = ['phone']
     let defaultValue = Object.keys(employee)
         .filter((key) => !excludedAttributes.includes(key))
         .reduce((obj, key) => {

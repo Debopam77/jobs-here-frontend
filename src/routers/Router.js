@@ -40,7 +40,7 @@ function Router () {
                 <Route path='/login' element={<Login setLoggedIn={setLoggedIn}/>}/>
                 <Route path='/logout' element={<Logout setLoggedIn={setLoggedIn}/>}/>
                 <Route path='/addEmployee' element={<AddEmployee setLoggedIn={setLoggedIn}/>}/>
-                <Route path='/employeeEdit' element={<EditEmployee/>}/>
+                <Route path='/employeeEdit' element={<EditEmployee loggedIn={loggedIn}/>}/>
                 <Route path='/addRecruiter' element={<AddRecruiter setLoggedIn={setLoggedIn}/>}/>
                 <Route path='/registerUser/*' element={<RegisterUser/>}/>
                 <Route path='/createJobListing' element={<CreateJobListing/>}/>
