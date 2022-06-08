@@ -64,8 +64,10 @@ function ShowCandidates() {
                 if (job.companyName === user.companyName) {
                     const haveCommonSkills = findCommonSkills(job.skills, employee.skills)
                     //Checking if employee has both experience and skill to match position, the return employee card
-                    if (parseInt(employee.experience) >= parseInt(job.experience) && haveCommonSkills)
-                        return (<div className='oneLine'><EmployeeCard employee={employee}/><JobCard job={job}/></div>)
+                    if (parseInt(employee.experience) >= parseInt(job.experience) && haveCommonSkills) {
+                        const haveCommonLocation = employee.preferredLocations.includes(job.location)
+                        return (<div className='oneLine'><EmployeeCard employee={employee}/><JobCard commonLocation={haveCommonLocation} job={job}/></div>)
+                    }
                 }
             }))
         })

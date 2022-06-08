@@ -23,7 +23,9 @@
     display : flex;
     padding : 2px;
 }
-
+.DoesntMatch{
+    background-color: var(--color-7);
+}
 .jobs {
     display: flex;
     flex-direction: column;

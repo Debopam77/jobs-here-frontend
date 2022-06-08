@@ -35,9 +35,20 @@ function ShowMatches() {
         //Triggring the API
         getJobs()
     },[])
+
     //To check if two arrays have some common element or not
-    const findCommonSkills = (arr1, arr2) => {
-        return arr1.some(item => arr2.includes(item))
+    const findCommon = (arr1, arr2) => {
+        flag = false;
+        arr1.forEach(element => {
+            arr2.forEach(arr2Element => {
+                if(arr2Element.toLowerCase() === element.toLowerCase()){
+                    flag = true
+                    break
+                }
+            })
+            
+        });
+        return flag;
     }
 
     return (<>
@@ -45,13 +56,13 @@ function ShowMatches() {
         <div className='jobs'>{
         jobs.map((job, index) => {
             //Let the magic happen
-            const haveCommonSkills = findCommonSkills(user.skills, job.skills)
+            const haveCommonSkills = findCommon(user.skills, job.skills)
 
             if( parseInt(user.experience) >= parseInt(job.experience) && haveCommonSkills) {
-                return (<JobCard key={'job'+index} job={job}/>)
+                const haveCommonLocation = user.preferredLocations.includes(job.location)
+                return (<JobCard commonLocation={haveCommonLocation} key={'job'+index} job={job}/>)
             }
-            //return <RecruiterCard key={'job'+index} job={job}/>
-            
+            return <></>
         })
     }</div>
     </>)

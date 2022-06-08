@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import '../style/index.scss'
-import {Routes, Route} from 'react-router-dom'
+import {Navigate} from 'react-router-dom'
 
 
 function Logout({setLoggedIn}) {
@@ -23,9 +23,7 @@ function Logout({setLoggedIn}) {
     //Redirect to home once logged in
     if(redirectState) {
         return (
-            <Routes>
-                <Route path='/' />
-            </Routes>      
+            <Navigate to='/'/>     
         )
     }
 
